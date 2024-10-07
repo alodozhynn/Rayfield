@@ -5,8 +5,8 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "by Sirius",
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Big Hub"
+      FolderName = "Rayfield", -- Create a custom folder for your hub/game
+      FileName = "Rayfield"
    },
    Discord = {
       Enabled = false,
