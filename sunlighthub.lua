@@ -110,5 +110,21 @@ local Button = Tab:CreateButton({
         -- Adicionar o bloco ao workspace para que apareça no jogo
         redBlock.Parent = game.Workspace
     end,
-})                 
-})
+ -- Botão para roubar o banco de Brookhaven
+local Button = Tab:CreateButton({
+    Name = "Money bank rob",
+    Callback = function()
+        local plr = game.Players.LocalPlayer
+        local char = plr.Character
+        local hrp = char.HumanoidRootPart
+
+        hrp.CFrame = CFrame.new(-6.593982696533203, 17.95779800415039, 269.07952880859375) 
+
+        -- Obter a bomba
+        local args = {
+            [1] = "PickingTools",
+            [2] = "Bomb"
+        }
+        
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+    end,
