@@ -229,4 +229,6 @@ local Toggle = Tab:CreateToggle({
     Callback = function(Value)
         toggleESPWithLines()
     end,
+local Tab = Window:CreateTab("Avatar Items", 4483362458)
+        
 })
