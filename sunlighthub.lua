@@ -1,12 +1,12 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
-   Name = "Rayfield Example Window",
-   LoadingTitle = "Rayfield Interface Suite",
-   LoadingSubtitle = "by Sirius",
+   Name = "Sunlight Hub 2.0 / Brookhaven RP🏡",
+   LoadingTitle = "Sunlight Hub 2.0",
+   LoadingSubtitle = "Brookhaven RP🏡",
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = "Rayfield", -- Create a custom folder for your hub/game
-      FileName = "Rayfield"
+      FolderName = "sunlightbrookhaven", -- Create a custom folder for your hub/game
+      FileName = "Rayfield.lua"
    },
    Discord = {
       Enabled = false,
