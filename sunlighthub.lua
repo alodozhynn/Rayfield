@@ -42,6 +42,21 @@ local targetPlayer
     end
     return nil
 end
+
+
+local function teleportAndKillPlayer(targetPlayer)
+    local myHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    local targetHRP = targetPlayer.Character:WaitForChild("HumanoidRootPart")
+    local connection
+    connection = game:GetService("RunService").Stepped:Connect(function()
+        myHRP.CFrame = targetHRP.CFrame
+        if targetPlayer.Character and targetPlayer.Character:FindFirstChild("Humanoid") and targetPlayer.Character.Humanoid.Sit then
+            myHRP.CFrame = CFrame.new(500000, 0, 0)
+            connection:Disconnect()
+        end
+    end)
+end
+
 local Input = YourTab:CreateInput({
     Name = "Select target player",
     PlaceholderText = "Digite o nome ou parte do nome do jogador",
@@ -71,10 +86,9 @@ local Button = Tab:CreateButton({
 }
  
 game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
-
---kill
-        -- Executa o loadstring para o script que você especificou
-    end,
+teleportAndKillPlayer(targetPlayer)       -- Executa o loadstring para o script que você especificou
+    end
+         
 local Section = Tab:CreateSection("Character")
 Section:Set("Character")            
 -- Botão para deixar o jogador pequeno
