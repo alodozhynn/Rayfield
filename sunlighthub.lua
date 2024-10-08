@@ -24,13 +24,42 @@ local Window = Rayfield:CreateWindow({
       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
-local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
-local Section = Tab:CreateSection("Section Example")
-Section:Set("Section Example")
+local Tab = Window:CreateTab("Trolling Tab", 4483362458) -- Title, Image
+local Section = Tab:CreateSection("Trolling Players")
+Section:Set("Trolling Players")
 local Button = Tab:CreateButton({
-   Name = "Button Example",
+   Name = "Disclaimer (say /console to read)",
    Callback = function()
-   -- The function that takes place when the button is pressed
+   print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
    end,
 })
-Button:Set("Button Example")
+Button:Set("Disclaimer (say /console to read)")
+local function findPlayerByPartialNameOrNickname(partialName)
+    local partial = partialName:sub(1, 2):lower()
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.Name:lower():sub(1, 2) == partial or (player.DisplayName and player.DisplayName:lower():sub(1, 2) == partial) then
+            return player
+        end
+    end
+    return nil
+end
+local Input = YourTab:CreateInput({
+    Name = "Select target player",
+    PlaceholderText = "Digite o nome ou parte do nome do jogador",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(value)
+        local selectedViewPlayer = findPlayerByPartialNameOrNickname(value)
+        if selectedViewPlayer then
+            print("Jogador encontrado: " .. selectedViewPlayer.Name)
+            if viewEnabled then
+                toggleView(false)
+                toggleView(true)
+            end
+        else
+            print("Nenhum jogador encontrado com esse nome ou apelido.")
+            if viewEnabled then
+                toggleView(false)
+            end
+        end
+    end,
+
