@@ -77,4 +77,16 @@ game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(un
         -- Executa o loadstring para o script que você especificou
         loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Void'))()
     end,
+local Section = Tab:CreateSection("Character")
+Section:Set("Character")            
+-- Botão para deixar o jogador pequeno
+local Button = Tab:CreateButton({
+    Name = "Character ultra small",
+    Callback = function()
+        local args = {
+            [1] = "CharacterSizeDown",
+            [2] = 4
+        }
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+    end,
 })
