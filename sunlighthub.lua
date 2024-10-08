@@ -1,39 +1,38 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
 local Window = Rayfield:CreateWindow({
-   Name = "Sunlight Hub 2.0 / Brookhaven RP🏡",
-   LoadingTitle = "Sunlight Hub 2.0",
-   LoadingSubtitle = "Brookhaven RP🏡",
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = "sunlightbrookhaven", -- Create a custom folder for your hub/game
-      FileName = "sunlightRayfieldbhv"
-   },
-   Discord = {
-      Enabled = false,
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-   KeySystem = false, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided",
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-   }
+    Name = "Sunlight Hub 2.0 / Brookhaven RP🏡",
+    LoadingTitle = "Sunlight Hub 2.0",
+    LoadingSubtitle = "Brookhaven RP🏡",
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "sunlightbrookhaven",
+        FileName = "sunlightRayfieldbhv"
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "Untitled",
+        Subtitle = "Key System",
+        Note = "No method of obtaining the key is provided",
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"Hello"}
+    }
 })
-local Tab = Window:CreateTab("Trolling Tab", 4483362458) -- Title, Image
+
+local Tab = Window:CreateTab("Trolling Tab", 4483362458)
 local Section = Tab:CreateSection("Trolling Players")
 Section:Set("Trolling Players")
-local Button = Tab:CreateButton({
-   Name = "Disclaimer (say /console to read)",
-   Callback = function()
-   print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
-   end,
-})
-local targetPlayer
+
+local targetPlayer = nil
+
+local function findPlayerByName(partialName)
     local partial = partialName:sub(1, 2):lower()
     for _, player in ipairs(game.Players:GetPlayers()) do
         if player.Name:lower():sub(1, 2) == partial or (player.DisplayName and player.DisplayName:lower():sub(1, 2) == partial) then
@@ -43,55 +42,61 @@ local targetPlayer
     return nil
 end
 
-
 local function teleportAndKillPlayer(targetPlayer)
-    local myHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local targetHRP = targetPlayer.Character:WaitForChild("HumanoidRootPart")
-    local connection
-    connection = game:GetService("RunService").Stepped:Connect(function()
-        myHRP.CFrame = targetHRP.CFrame
-        if targetPlayer.Character and targetPlayer.Character:FindFirstChild("Humanoid") and targetPlayer.Character.Humanoid.Sit then
-            myHRP.CFrame = CFrame.new(500000, 0, 0)
-            connection:Disconnect()
-        end
-    end)
+    if targetPlayer and targetPlayer.Character then
+        local myHRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local targetHRP = targetPlayer.Character:WaitForChild("HumanoidRootPart")
+        local connection
+        connection = game:GetService("RunService").Stepped:Connect(function()
+            myHRP.CFrame = targetHRP.CFrame
+            if targetPlayer.Character and targetPlayer.Character:FindFirstChild("Humanoid") and targetPlayer.Character.Humanoid.Sit then
+                myHRP.CFrame = CFrame.new(500000, 0, 0)
+                connection:Disconnect()
+            end
+        end)
+    end
 end
 
-local Input = YourTab:CreateInput({
+local Button = Tab:CreateButton({
+    Name = "Disclaimer (say /console to read)",
+    Callback = function()
+        print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
+    end,
+})
+
+local Input = Tab:CreateInput({
     Name = "Select target player",
     PlaceholderText = "Digite o nome ou parte do nome do jogador",
     RemoveTextAfterFocusLost = false,
     Callback = function(value)
-        local selectedViewPlayer = targetPlayer
-        if selectedViewPlayer then
-            print("Jogador encontrado: " .. selectedViewPlayer.Name)
-            if viewEnabled then
-                toggleView(false)
-                toggleView(true)
-            end
+        targetPlayer = findPlayerByName(value)
+        if targetPlayer then
+            print("Jogador encontrado: " .. targetPlayer.Name)
         else
             print("Nenhum jogador encontrado com esse nome ou apelido.")
-            if viewEnabled then
-                toggleView(false)
-            end
         end
     end,
--- Botão para matar o jogador usando o couch
+})
+
 local Button = Tab:CreateButton({
     Name = "Do couch kill player",
     Callback = function()
-               local args = {
-    [1] = "PickingTools",
-    [2] = "Couch"
-}
- 
-game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
-teleportAndKillPlayer(targetPlayer)       -- Executa o loadstring para o script que você especificou
+        if targetPlayer then
+            local args = {
+                [1] = "PickingTools",
+                [2] = "Couch"
+            }
+            game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+            teleportAndKillPlayer(targetPlayer)
+        else
+            print("Selecione um jogador primeiro.")
+        end
     end
-         
+})
+
 local Section = Tab:CreateSection("Character")
-Section:Set("Character")            
--- Botão para deixar o jogador pequeno
+Section:Set("Character")
+
 local Button = Tab:CreateButton({
     Name = "Character ultra small",
     Callback = function()
@@ -101,7 +106,8 @@ local Button = Tab:CreateButton({
         }
         game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
     end,
- -- Botão para ver toda a cidade de Brookhaven
+})
+
 local Button = Tab:CreateButton({
     Name = "See the entire city of Brookhaven",
     Callback = function()
@@ -109,20 +115,17 @@ local Button = Tab:CreateButton({
         local char = plr.Character
         local hrp = char.HumanoidRootPart
 
-        hrp.CFrame = CFrame.new(-157.49581909179688, 136.7017364501953, 123.78034210205078) 
+        hrp.CFrame = CFrame.new(-157.49581909179688, 136.7017364501953, 123.78034210205078)
 
         -- Criar um novo bloco
         local redBlock = Instance.new("Part")
-        
-        -- Definir as propriedades do bloco
         redBlock.Size = Vector3.new(4, 2, 3) -- Ajustar o tamanho conforme necessário
         redBlock.Color = Color3.fromRGB(255, 0, 0) -- Definir a cor como vermelho
         redBlock.Position = Vector3.new(0, 10, 0) -- Ajustar a posição conforme necessário
-        
-        -- Adicionar o bloco ao workspace para que apareça no jogo
         redBlock.Parent = game.Workspace
     end,
- -- Botão para roubar o banco de Brookhaven
+})
+
 local Button = Tab:CreateButton({
     Name = "Money bank rob",
     Callback = function()
@@ -130,7 +133,7 @@ local Button = Tab:CreateButton({
         local char = plr.Character
         local hrp = char.HumanoidRootPart
 
-        hrp.CFrame = CFrame.new(-6.593982696533203, 17.95779800415039, 269.07952880859375) 
+        hrp.CFrame = CFrame.new(-6.593982696533203, 17.95779800415039, 269.07952880859375)
 
         -- Obter a bomba
         local args = {
@@ -140,26 +143,33 @@ local Button = Tab:CreateButton({
         
         game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
     end,
+})
+
 -- Conectar eventos de jogador removido
 game.Players.PlayerRemoving:Connect(function(player)
-    if selectedViewPlayer == player then
-        selectedViewPlayer = nil
-        if viewEnabled then
-            toggleView(false)
-      Rayfield:Notify({
-   Title = "Sunlight Hub 2.0",
-   Content = "..playerName.. leave the game!",
-   Duration = 1.5,
-   Image = 4483362458,
-   Actions = { -- Notification Buttons
-      Ignore = {
-         Name = "I'll gonna cry or idk?",
-         Callback = function()
-         print("")
-      end
-   },
-},local function toggleESPWithLines()
-    espEnabled = not espEnabled
+    if targetPlayer == player then
+        targetPlayer = nil
+        Rayfield:Notify({
+            Title = "Sunlight Hub 2.0",
+            Content = player.Name .. " saiu do jogo!",
+            Duration = 1.5,
+            Image = 4483362458,
+            Actions = {
+                Ignore = {
+                    Name = "I'll gonna cry or idk?",
+                    Callback = function()
+                        print("")
+                    end
+                },
+            },
+        })
+    end
+end)
+
+local playerLabels = {}
+
+local function toggleESPWithLines()
+    local espEnabled = not espEnabled
     if espEnabled then
         print("ESP with lines activated!")
         for _, player in ipairs(game.Players:GetPlayers()) do
@@ -173,18 +183,16 @@ game.Players.PlayerRemoving:Connect(function(player)
                     line.Thickness = 1 -- Espessura da linha
                     line.Transparency = 0.5 -- Transparência da linha
                     line.Parent = torso
- 
-                    -- Atualiza a posição da linha para a cabeça do jogador
+
                     line.CFrame = CFrame.new(torso.Position, head.Position)
- 
-                    -- Adiciona o nome do jogador com uma borda preta e texto branco
+
                     local playerNameLabel = Instance.new("BillboardGui")
                     playerNameLabel.Name = "PlayerNameLabel"
                     playerNameLabel.AlwaysOnTop = true
                     playerNameLabel.Size = UDim2.new(0, 100, 0, 20)
                     playerNameLabel.StudsOffset = Vector3.new(0, 2, 0)
                     playerNameLabel.Adornee = head
- 
+
                     local playerNameText = Instance.new("TextLabel")
                     playerNameText.Name = "PlayerName"
                     playerNameText.Text = player.Name
@@ -194,13 +202,12 @@ game.Players.PlayerRemoving:Connect(function(player)
                     playerNameText.Font = Enum.Font.SourceSansSemibold
                     playerNameText.TextSize = 16
                     playerNameText.Parent = playerNameLabel
- 
-                    -- Adiciona a borda preta
+
                     local playerNameOutline = playerNameText:Clone()
                     playerNameOutline.TextColor3 = Color3.new(0, 0, 0) -- Preto
                     playerNameOutline.Position = UDim2.new(0, -1, 0, -1)
                     playerNameOutline.Parent = playerNameLabel
- 
+
                     playerNameLabel.Parent = game.CoreGui
                     playerLabels[player.Name] = playerNameLabel
                 end
@@ -214,14 +221,12 @@ game.Players.PlayerRemoving:Connect(function(player)
         end
     end
 end
- local Toggle = Tab:CreateToggle({
-   Name = "Toggle Example",
-   CurrentValue = false,
-   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-       toggleESPWithLines()                                                  
-   -- The function that takes place when the toggle is pressed
-   -- The variable (Value) is a boolean on whether the toggle is true or false
-   end,
+local Section = Tab:CreateSection("Players ESP")
+local Toggle = Tab:CreateToggle({
+    Name = "Do enable ESP",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        toggleESPWithLines()
+    end,
 })
-                                                                                  
