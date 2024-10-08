@@ -89,4 +89,26 @@ local Button = Tab:CreateButton({
         }
         game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
     end,
+ -- Botão para ver toda a cidade de Brookhaven
+local Button = Tab:CreateButton({
+    Name = "See the entire city of Brookhaven",
+    Callback = function()
+        local plr = game.Players.LocalPlayer
+        local char = plr.Character
+        local hrp = char.HumanoidRootPart
+
+        hrp.CFrame = CFrame.new(-157.49581909179688, 136.7017364501953, 123.78034210205078) 
+
+        -- Criar um novo bloco
+        local redBlock = Instance.new("Part")
+        
+        -- Definir as propriedades do bloco
+        redBlock.Size = Vector3.new(4, 2, 3) -- Ajustar o tamanho conforme necessário
+        redBlock.Color = Color3.fromRGB(255, 0, 0) -- Definir a cor como vermelho
+        redBlock.Position = Vector3.new(0, 10, 0) -- Ajustar a posição conforme necessário
+        
+        -- Adicionar o bloco ao workspace para que apareça no jogo
+        redBlock.Parent = game.Workspace
+    end,
+})                 
 })
