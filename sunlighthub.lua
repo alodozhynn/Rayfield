@@ -128,3 +128,23 @@ local Button = Tab:CreateButton({
         
         game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
     end,
+-- Conectar eventos de jogador removido
+game.Players.PlayerRemoving:Connect(function(player)
+    if selectedViewPlayer == player then
+        selectedViewPlayer = nil
+        if viewEnabled then
+            toggleView(false)
+      Rayfield:Notify({
+   Title = "Sunlight Hub 2.0",
+   Content = "..playerName.. leave the game!",
+   Duration = 1.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "I'll gonna cry or idk?",
+         Callback = function()
+         print("")
+      end
+   },
+},
+})                                    
