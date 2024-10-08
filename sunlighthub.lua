@@ -6,7 +6,7 @@ local Window = Rayfield:CreateWindow({
    ConfigurationSaving = {
       Enabled = true,
       FolderName = "sunlightbrookhaven", -- Create a custom folder for your hub/game
-      FileName = "Rayfield.lua"
+      FileName = "sunlightRayfieldbhv"
    },
    Discord = {
       Enabled = false,
@@ -33,8 +33,7 @@ local Button = Tab:CreateButton({
    print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
    end,
 })
-Button:Set("Disclaimer (say /console to read)")
-local function findPlayerByPartialNameOrNickname(partialName)
+local targetPlayer
     local partial = partialName:sub(1, 2):lower()
     for _, player in ipairs(game.Players:GetPlayers()) do
         if player.Name:lower():sub(1, 2) == partial or (player.DisplayName and player.DisplayName:lower():sub(1, 2) == partial) then
@@ -48,7 +47,7 @@ local Input = YourTab:CreateInput({
     PlaceholderText = "Digite o nome ou parte do nome do jogador",
     RemoveTextAfterFocusLost = false,
     Callback = function(value)
-        local selectedViewPlayer = findPlayerByPartialNameOrNickname(value)
+        local selectedViewPlayer = targetPlayer
         if selectedViewPlayer then
             print("Jogador encontrado: " .. selectedViewPlayer.Name)
             if viewEnabled then
@@ -75,7 +74,6 @@ game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(un
 
 --kill
         -- Executa o loadstring para o script que você especificou
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Void'))()
     end,
 local Section = Tab:CreateSection("Character")
 Section:Set("Character")            
