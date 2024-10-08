@@ -146,5 +146,70 @@ game.Players.PlayerRemoving:Connect(function(player)
          print("")
       end
    },
-},
-})                                    
+},local function toggleESPWithLines()
+    espEnabled = not espEnabled
+    if espEnabled then
+        print("ESP with lines activated!")
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            if player.Character and player.Character:FindFirstChild("Head") then
+                local torso = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local head = player.Character:FindFirstChild("Head")
+                if torso and head then
+                    local line = Instance.new("LineHandleAdornment")
+                    line.Adornee = torso
+                    line.Color3 = Color3.new(0, 0, 0) -- Preto
+                    line.Thickness = 1 -- Espessura da linha
+                    line.Transparency = 0.5 -- Transparência da linha
+                    line.Parent = torso
+ 
+                    -- Atualiza a posição da linha para a cabeça do jogador
+                    line.CFrame = CFrame.new(torso.Position, head.Position)
+ 
+                    -- Adiciona o nome do jogador com uma borda preta e texto branco
+                    local playerNameLabel = Instance.new("BillboardGui")
+                    playerNameLabel.Name = "PlayerNameLabel"
+                    playerNameLabel.AlwaysOnTop = true
+                    playerNameLabel.Size = UDim2.new(0, 100, 0, 20)
+                    playerNameLabel.StudsOffset = Vector3.new(0, 2, 0)
+                    playerNameLabel.Adornee = head
+ 
+                    local playerNameText = Instance.new("TextLabel")
+                    playerNameText.Name = "PlayerName"
+                    playerNameText.Text = player.Name
+                    playerNameText.Size = UDim2.new(1, 0, 1, 0)
+                    playerNameText.TextColor3 = Color3.new(1, 1, 1) -- Branco
+                    playerNameText.BackgroundTransparency = 1
+                    playerNameText.Font = Enum.Font.SourceSansSemibold
+                    playerNameText.TextSize = 16
+                    playerNameText.Parent = playerNameLabel
+ 
+                    -- Adiciona a borda preta
+                    local playerNameOutline = playerNameText:Clone()
+                    playerNameOutline.TextColor3 = Color3.new(0, 0, 0) -- Preto
+                    playerNameOutline.Position = UDim2.new(0, -1, 0, -1)
+                    playerNameOutline.Parent = playerNameLabel
+ 
+                    playerNameLabel.Parent = game.CoreGui
+                    playerLabels[player.Name] = playerNameLabel
+                end
+            end
+        end
+    else
+        print("ESP com linhas desativado!")
+        for playerName, playerNameLabel in pairs(playerLabels) do
+            playerNameLabel:Destroy()
+            playerLabels[playerName] = nil
+        end
+    end
+end
+ local Toggle = Tab:CreateToggle({
+   Name = "Toggle Example",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+       toggleESPWithLines()                                                  
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   end,
+})
+                                                                                  
