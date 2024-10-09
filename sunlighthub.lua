@@ -231,7 +231,7 @@ local Toggle = Tab:CreateToggle({
     end,
 local Tab = Window:CreateTab("Avatar Items", 4483362458)
   local Button = Tab:CreateButton({
-    Name = "Character ultra small",
+    Name = "Super Shin Sonic Tapes [🐱MORPH!]",
     Callback = function()
         local args = {
     [1] = "wear",
