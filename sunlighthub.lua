@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/alodozhynn/source/refs/heads/main/source.txt'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/Rayfield))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Sunlight Hub 2.0 / Brookhaven RP🏡",
@@ -60,7 +60,7 @@ end
 local Button = Tab:CreateButton({
     Name = "Destroy Window (use this if you can't leave the hub)",
     Callback = function()
-       Rayfield:Destroy() 
+        Player:Kick()
     end,
 })
 
