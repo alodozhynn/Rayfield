@@ -230,5 +230,18 @@ local Toggle = Tab:CreateToggle({
         toggleESPWithLines()
     end,
 local Tab = Window:CreateTab("Avatar Items", 4483362458)
-        
-})
+  local Button = Tab:CreateButton({
+    Name = "Character ultra small",
+    Callback = function()
+        local args = {
+    [1] = "wear",
+    [2] = 18179703073
+    [3] = 12850150835
+    [4] = 11466308494
+    [5] = 17176415694
+    [6] = 17176411417
+    [7] = 17176405748                    
+}
+
+game:GetService("ReplicatedStorage").RE:FindFirstChild("1Updat1eAvata1r"):FireServer(unpack(args))
+  	end    
