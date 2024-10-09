@@ -58,9 +58,9 @@ local function teleportAndKillPlayer(targetPlayer)
 end
 
 local Button = Tab:CreateButton({
-    Name = "Disclaimer (say /console to read)",
+    Name = "Destroy Window (use this if you can't leave the hub)",
     Callback = function()
-        print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
+       Rayfield:Destroy() 
     end,
 })
 
