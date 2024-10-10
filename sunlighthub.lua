@@ -169,6 +169,7 @@ end)
 local playerLabels = {}
 
 local function toggleESPWithLines()
+    local espEnabled = false
     local espEnabled = not espEnabled
     if espEnabled then
         print("ESP with lines activated!")
