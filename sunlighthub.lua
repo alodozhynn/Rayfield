@@ -58,9 +58,9 @@ local function teleportAndKillPlayer(targetPlayer)
 end
 
 local Button = Tab:CreateButton({
-    Name = "Destroy Window (use this if you can't leave the hub)",
+    Name = "Do kick yourself",
     Callback = function()
-        Player:Kick()
+     game.Players:WaitForChild("LocalPlayer"):Kick("Successfully kicked player!")
     end,
 })
 
