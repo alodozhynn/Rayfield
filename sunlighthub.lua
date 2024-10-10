@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/Rayfield))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/Rayfield'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Sunlight Hub 2.0 / Brookhaven RP🏡",
