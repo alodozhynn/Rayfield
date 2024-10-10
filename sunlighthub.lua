@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/Rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Sunlight Hub 2.0 / Brookhaven RP🏡",
@@ -58,9 +58,9 @@ local function teleportAndKillPlayer(targetPlayer)
 end
 
 local Button = Tab:CreateButton({
-    Name = "Do kick yourself",
+    Name = "Disclaimer (say /console to read)",
     Callback = function()
-     game.Players:WaitForChild("LocalPlayer"):Kick("Successfully kicked player!")
+        print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
     end,
 })
 
@@ -169,7 +169,6 @@ end)
 local playerLabels = {}
 
 local function toggleESPWithLines()
-    local espEnabled = false
     local espEnabled = not espEnabled
     if espEnabled then
         print("ESP with lines activated!")
@@ -230,19 +229,4 @@ local Toggle = Tab:CreateToggle({
     Callback = function(Value)
         toggleESPWithLines()
     end,
-local Tab = Window:CreateTab("Avatar Items", 4483362458)
-  local Button = Tab:CreateButton({
-    Name = "Super Shin Sonic Tapes [🐱MORPH!]",
-    Callback = function()
-        local args = {
-    [1] = "wear",
-    [2] = 18179703073
-    [3] = 12850150835
-    [4] = 11466308494
-    [5] = 17176415694
-    [6] = 17176411417
-    [7] = 17176405748                    
-}
-
-game:GetService("ReplicatedStorage").RE:FindFirstChild("1Updat1eAvata1r"):FireServer(unpack(args))
-  	end    
+})
