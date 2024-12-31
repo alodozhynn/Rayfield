@@ -230,6 +230,3 @@ local Toggle = Tab:CreateToggle({
         toggleESPWithLines()
     end,
 })
-local Tab = Window:CreateTab("Character Scripts", 4483362458)
-local Section = Tab:CreateSection("Character")
-Section:Set("Character")
