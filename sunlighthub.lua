@@ -58,9 +58,9 @@ local function teleportAndKillPlayer(targetPlayer)
 end
 
 local Button = Tab:CreateButton({
-    Name = "Disclaimer (say /console to read)",
+    Name = "Do print yay :D",
     Callback = function()
-        print("Disclaimer: This script is a new version of Sunlight Hub 1.9, thanks Sander X Hub for some functions")
+         print("yay :D")
     end,
 })
 
@@ -102,7 +102,7 @@ local Button = Tab:CreateButton({
     Callback = function()
         local args = {
             [1] = "CharacterSizeDown",
-            [2] = 4
+            [2] = 3.5
         }
         game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
     end,
