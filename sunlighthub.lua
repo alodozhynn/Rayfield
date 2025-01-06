@@ -102,7 +102,7 @@ local Button = Tab:CreateButton({
     Callback = function()
         local args = {
             [1] = "CharacterSizeDown",
-            [2] = 3.5
+            [2] = 2
         }
         game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
     end,
