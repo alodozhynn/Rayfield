@@ -26,7 +26,7 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
-local Tab = Window:CreateTab("Trolling Tab", 4483362458)
+local Tab = Window:CreateTab(" ", 4483362458)
 local Section = Tab:CreateSection("Trolling Players")
 Section:Set("Trolling Players")
 
